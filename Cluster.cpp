@@ -4,6 +4,7 @@
 #include "Cluster.h"
 #include <cstdlib>
 #include <limits>
+#include <afxres.h>
 
 using std::vector;
 using std::cout;
@@ -27,15 +28,17 @@ void Cluster::print() const
     }
 }
 
-void calcAllInterPointDistances(const Cluster& cluster1,const Cluster& cluster2,vector<double> distances)
+void calcAllInterPointDistances(const Cluster cluster1,const Cluster cluster2,vector<double> distances)
 {
-    double minimalDist(std::numeric_limits<double>max());
-    for(vector<Point>::const_iterator cit=cluster1.begin(); cit!=cluster1.end();cit++)
+    for(vector<Point>::const_iterator cit=cluster1._points.begin(); cit!=cluster1._points.end();cit++)
     {
-        for(vector<Point>::const_iterator citt=cluster2.begin;citt!=cluster2.end();citt++)
+        double minimalDist=std::numeric_limits<double>::max();
+        for(vector<Point>::const_iterator citt=cluster2._points.begin();citt!=cluster2._points.end();citt++)
         {
-            if(*cit.euclideanDistance())
+            if(minimalDist > cluster1(*cit).euclideanDistance(cluster2(*citt)))
+                minimalDist=cluster1(*cit).euclideanDistance(cluster2(*citt))
         }
+        distances.push_back(minimalDist);
     }
 }
 

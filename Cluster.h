@@ -9,6 +9,7 @@
 
 class Cluster
 {
+    friend void calcAllInterPointDistances(const Cluster cluster1,const Cluster cluster2,std::vector<double> distances);
 private:
     int _idCluster;
     std::vector<Point> _points;
@@ -20,7 +21,6 @@ public:
 public:
     Cluster(int id_cluster, const Point &point);
     void print( ) const;
-    void calcAllInterPointDistances(const Cluster& cluster1,const Cluster& cluster2,std::vector<double> distances);
 private:
     static const int _invalid;
 };
